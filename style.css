@@ -50,6 +50,41 @@ input::placeholder{
     font-size: 15px;
     color: #ffff;
 }
+.suggest_box{
+    position: absolute;
+    width: 100%;
+    max-height: 150px;
+    background-color: #fff;
+    overflow-y: scroll;
+    z-index: 3;
+    border-radius: 5px;
+}
+.suggest_box ul{
+    border-top: 1px solid #999;
+    padding: 15px 10px;
+}
+.suggest_box ul li{
+    color: #333;
+    list-style: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: block;
+    user-select: none;
+    padding: 6px 2px;
+}
+.suggest_box ul li:hover{
+    background-color: #e9f3ff;
+}
+::-webkit-scrollbar{
+    width: 5px;
+}
+::-webkit-scrollbar-track{
+    background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #374457;
+    border-radius: 8px;
+}
 .weather_units{
     font-size: 1.5rem;
     display: flex;
