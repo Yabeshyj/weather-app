@@ -13,7 +13,10 @@
     <div class="container">
         <div class="weather_header">
             <form action="#" class="weather_searchform">
-                <input type="text" name="" id="" class="weather_search" placeholder="Search for a city..." ><i class="fa-solid fa-magnifying-glass"></i> 
+                <input type="text" name="" id="searchCity"  autocomplete="off" class="weather_search" oninput="showSuggestions(this.value)" placeholder="Search for a city..." ><i class="fa-solid fa-magnifying-glass"></i> 
+                <div class="suggest_box">
+                    <ul id="suggestions"></ul> 
+                </div>
             </form>
             <div class="weather_units">
                 <span id="weather_unit_celsius">&#176C</span>
@@ -75,6 +78,6 @@
     </footer>
     
     <script src="https://kit.fontawesome.com/711695f58a.js" crossorigin="anonymous"></script>
-    <script defer src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
