@@ -1,9 +1,14 @@
-//state
+//API_KEY
+const API_KEY='c1a531491b49ba1c99b0128388028bde'
+
+//city
 let currCity='Tirunelveli'
 let units='metric'
 
 //Selectors
 let city=document.querySelector(".weather_city")
+let search =document.querySelector(".weather_search")
+let suggest_box=document.querySelector(".suggest_box")
 let timeEl=document.getElementById("time")
 let dateEl=document.getElementById("date")
 let weather_forecast=document.querySelector(".weather_forecast")
@@ -15,13 +20,50 @@ let weather_humidity=document.querySelector(".weather_humidity")
 let weather_wind=document.querySelector(".weather_wind")
 let weather_pressure=document.querySelector(".weather_pressure")
 
+
+//Searching City Suggestions
+suggest_box.style.display='none'
+
+async function showSuggestions(value){
+
+    const suggestions = document.getElementById("suggestions")
+    suggestions.innerHTML = ''
+    suggest_box.style.display='block'
+
+    if(value.length > 0){
+        try{
+            const response= await fetch(`https://api.openweathermap.org/data/2.5/find?q=${value}&type=like&sort=population&cnt=30&appid=${API_KEY}`)
+            const data = await response.json();
+            const cities = data.list;
+
+            cities.forEach(city => {
+                const li = document.createElement('li');
+                li.textContent = `${city.name}, ${convertCountryCode(city.sys.country)}`;
+                li.onclick = () => {
+                    currCity= city.name;
+                    getWeather()
+                    search.value=''
+                    suggestions.innerHTML = ''
+                    suggest_box.style.display='none'
+                };
+                suggestions.appendChild(li);
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+   
+}
+
 //Searching city
 document.querySelector(".weather_searchform").addEventListener('submit',e=>{
-    let search =document.querySelector(".weather_search")
     e.preventDefault()
     currCity=search.value 
     getWeather()
     search.value=''
+    suggestions.innerHTML = ''
+    suggest_box.style.display='none'
 })
 
 
@@ -72,8 +114,7 @@ function convertCountryCode(country){
 
 //Fetching API
 function getWeather(){
-    const API_KEY='c1a531491b49ba1c99b0128388028bde'
-
+    
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currCity}&appid=${API_KEY}&units=${units}`).then(res=>res.json()).then(data=>
      {
         
