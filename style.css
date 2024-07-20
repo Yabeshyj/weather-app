@@ -12,6 +12,7 @@
 }
 body{
     background-color: aliceblue;
+    user-select:none;
 }
 .container{
     background-color: var(--mainbox);
